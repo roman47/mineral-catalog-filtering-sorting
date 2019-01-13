@@ -1,0 +1,42 @@
+{% load static from staticfiles %}
+{% load course_extras %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <head>
+        <meta charset="utf-8">
+        <title>Dillon's Minerals - They are Geographic!</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Cousine' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/layout.css">
+        </head>
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+        {% block static %}{% endblock %}
+    </head>
+    <body>
+    <div class="grid-100">
+    <table style="width: 100%;"><tr>
+        <td>
+            <div id="container">
+                {% nav_courses_list chosen_letter %}
+            </div>
+        </td>
+        <td><a href="{% url 'courses:list' %}">All Minerals</a></td>
+        <td><form action="{%url 'courses:search' %}" method="GET">
+            <input type="search" name="q"><button type="submit" class="secondary small button">Search</button>
+        </form></td>
+    </tr></table>
+
+ <h1 class="logo__name text-centered">Dillon's Minerals</h1>
+
+            {% block content %}{% endblock %}          
+        </div>
+         <div class="minerals__random">
+              <a class="minerals__anchor" href="{% url 'courses:detail' pk=rand %}">Show random mineral</a>
+            </div>
+</html>

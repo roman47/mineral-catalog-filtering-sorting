@@ -1,0 +1,9 @@
+{% for letter in letters %}
+    <div class="block"><a href="{% url 'courses:single_letter' pk=letter %}">
+    {% if letter == chosen_letter %}
+        <b>{{ letter|upper }}</b>
+    {% else %}
+        {{ letter }}
+    {% endif %}
+    </a></div>
+{% endfor %}

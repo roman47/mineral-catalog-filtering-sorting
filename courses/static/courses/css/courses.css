@@ -1,0 +1,8 @@
+#container {
+  width: 100%;
+  display: inline-block;
+}
+.block {
+  margin: 10px;
+  float: left;
+}
