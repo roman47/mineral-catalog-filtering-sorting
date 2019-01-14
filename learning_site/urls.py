@@ -15,15 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import debug_toolbar
 
-
-from . import views
 
 urlpatterns = [
-    url(r'^$', lambda r: HttpResponseRedirect('minerals/')),
-    url(r'^minerals/', include(('courses.urls', 'courses'))),
+        url(r'^$', lambda r: HttpResponseRedirect('minerals/')),
+        url(r'^minerals/', include('courses.urls', namespace='courses')),
+        url(r'^__debug__/', include(debug_toolbar.urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -20,7 +20,23 @@
     </head>
     <body>
     <div class="grid-100">
-    <table style="width: 100%;"><tr>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        {% nav_group_list chosen_group %}
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Groups</span>
+
+
+        <div id="mySidenavRight" class="sidenavRight">
+      <a href="javascript:void(0)" class="closebtnRight" onclick="closeNavRight()">&times;</a>
+        {% nav_color_list chosen_color %}
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNavRight()">&#9776; Color</span>
+
+
+    <table style="width: 100%;">
+        <tr>
         <td>
             <div id="container">
                 {% nav_courses_list chosen_letter %}
@@ -30,7 +46,7 @@
         <td><form action="{%url 'courses:search' %}" method="GET">
             <input type="search" name="q"><button type="submit" class="secondary small button">Search</button>
         </form></td>
-    </tr></table>
+    </table>
 
  <h1 class="logo__name text-centered">Dillon's Minerals</h1>
 
@@ -39,4 +55,22 @@
          <div class="minerals__random">
               <a class="minerals__anchor" href="{% url 'courses:detail' pk=rand %}">Show random mineral</a>
             </div>
+
+    <script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+function openNavRight() {
+  document.getElementById("mySidenavRight").style.width = "250px";
+}
+
+function closeNavRight() {
+  document.getElementById("mySidenavRight").style.width = "0";
+}
+</script>
 </html>

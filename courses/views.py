@@ -1,9 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 
-from .models import Course, Step, Mineral
+from .models import Mineral
 import random
-from django.db.models import Max
 
 
 def index(request):
@@ -21,12 +20,13 @@ def detail(request, pk):
 
 
 def random_mineral_pk():
-    '''Gets a random primary key from the mineral table'''
+    """Gets a random primary key from the mineral table"""
     count = Mineral.objects.latest('pk').pk
     random_index = random.randint(0, count - 1)
     return random_index
 
-def single_letter(request,pk):
+
+def single_letter(request, pk="A"):
     minerals = Mineral.objects.filter(name__istartswith=pk)
     rand = random_mineral_pk
     # import pdb;
@@ -34,8 +34,26 @@ def single_letter(request,pk):
     return render(request, 'courses/index.html',
                   {'minerals': minerals, 'rand': rand, 'chosen_letter': pk})
 
+
+def single_group(request, pk="A"):
+    minerals = Mineral.objects.filter(group__icontains=pk)
+    rand = random_mineral_pk
+    # import pdb;
+    # pdb.set_trace()
+    return render(request, 'courses/index.html',
+                  {'minerals': minerals, 'rand': rand, 'chosen_group': pk})
+
+
+def single_color(request, pk="A"):
+    minerals = Mineral.objects.filter(color__icontains=pk)
+    rand = random_mineral_pk
+    return render(request, 'courses/index.html',
+                  {'minerals': minerals, 'rand': rand,
+                   'chosen_color': pk})
+
+
 def search(request):
-    '''Return list of minerals based on search'''
+    """Return list of minerals based on search"""
     rand = random_mineral_pk
     term = request.GET.get('q')
     minerals = Mineral.objects.filter(
@@ -59,7 +77,5 @@ def search(request):
         Q(specific_gravity__icontains=term) |
         Q(group__icontains=term)
         )
-    #import pdb;
-    #pdb.set_trace()
     return render(request, 'courses/index.html',
                   {'minerals': minerals, 'rand': rand})

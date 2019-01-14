@@ -1,0 +1,9 @@
+{% for color in colors %}
+    <div class="block"><a href="{% url 'courses:single_color' pk=color %}">
+    {% if color == chosen_color %}
+        <b>{{ color|upper }}</b>
+    {% else %}
+        {{ color }}
+    {% endif %}
+    </a></div>
+{% endfor %}

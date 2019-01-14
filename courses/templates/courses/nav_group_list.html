@@ -1,0 +1,9 @@
+{% for group in groups %}
+    <div class="block"><a href="{% url 'courses:single_group' pk=group %}">
+    {% if group == chosen_group %}
+        <b>{{ group|upper }}</b>
+    {% else %}
+        {{ group }}
+    {% endif %}
+    </a></div>
+{% endfor %}
